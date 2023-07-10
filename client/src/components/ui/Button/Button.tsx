@@ -3,8 +3,8 @@ import React from 'react'
 import './styles.scss'
 
 type ButtonProps = {
-  text: string,
-  onClick: () => void
+  text: string
+  onClick?: () => void
   className?: string
   disabled?: boolean
 }
@@ -14,7 +14,7 @@ const Button = (props: ButtonProps) => {
   return (
     <button
       className={`button ${props.className}`}
-      onClick={() => props.onClick()}
+      onClick={() => props.onClick ? props.onClick() : undefined}
       disabled={props.disabled}
     >
       {props.text}

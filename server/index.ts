@@ -2,8 +2,8 @@ import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 
-import routes from './routes/routes'
-import cards from './routes/cards'
+import user from './routes/user'
+import words from './routes/words'
 
 dotenv.config()
 
@@ -17,17 +17,17 @@ if (mongoString) {
   })
 
   database.once('connected', () => {
-    console.log('Database Connected');
+    console.log('Database Connected')
   })
 } else {
-  console.log('DATABASE_URL - undefined');
+  console.log('DATABASE_URL - undefined')
 }
 
 const app = express()
 app.use(express.json())
-app.use('/api', routes)
-app.use('/cards', cards)   
+app.use('/user', user)
+app.use('/words', words)
 
 app.listen(3001, () => {
-    console.log(`Server Started at 3001`)
+  console.log(`Server Started at 3001`)
 })

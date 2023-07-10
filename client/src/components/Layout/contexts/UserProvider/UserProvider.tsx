@@ -65,9 +65,9 @@ const UserProvider = (props: UserProviderProps) => {
 
     
   const signIn = () => {
-    const user = { id: 1, name: 'Pochito', permissions: 'Lord' }
+    // const user = { id: 1, name: 'Pochito', permissions: 'Lord' }
 
-    dispatch({ type: 'signIn', user: user })
+    // dispatch({ type: 'signIn', user: user })
   }
 
   const autoSignIn = (props: string) => {
