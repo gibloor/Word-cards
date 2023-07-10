@@ -1,0 +1,26 @@
+.footer {
+  background-color: rgb(71, 109, 111);
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    display: flex;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    margin-right: 24px;
+  }
+
+  &__column:last-child {
+    margin-right: 0px;
+  }
+
+  &__column > span {
+    margin-bottom: 4px;
+  }
+}

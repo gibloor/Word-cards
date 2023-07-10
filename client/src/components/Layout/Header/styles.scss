@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px 32px;
+  background-color: rgb(71, 109, 111);
+
+  &__navigation {
+    display: flex;
+    align-items: center;
+  }
+
+  &__navigation > a {
+    margin-right: 16px;
+  }
+
+  &__logo {
+    height: 32px;
+  }
+
+  &__authentication {
+    display: flex;
+    align-items: center;
+  }
+
+  &__authentication > * {
+    margin-left: 16px;
+  }
+
+  &__notification {
+    position: relative;
+  }
+
+  &__notification_picture {
+    height: 16px;
+  }
+}
