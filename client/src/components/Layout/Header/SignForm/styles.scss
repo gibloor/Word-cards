@@ -12,6 +12,7 @@
   background-image: url("./fon.png");
   background-size: 50%;
   border-image: url("./frame.png") 50 round;
+  z-index: 999;
 
   &__form {
     display: flex;

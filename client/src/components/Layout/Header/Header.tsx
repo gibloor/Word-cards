@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Button from '../../ui/Button/Button'
-import { UserContext } from '../contexts/UserProvider/UserProvider'
+import { UserContext } from 'components/Layout/contexts/UserProvider/UserProvider'
 import SignForm from './SignForm/SignForm'
 
 import logo from './logo.png'
@@ -13,8 +13,7 @@ import './styles.scss'
 export type FormType = null | 'signIn' | 'signUp'
 
 const Header = () => {
-  const { user, autoSignIn, signUp } = useContext(UserContext)
-
+  const { user, autoSignIn } = useContext(UserContext)
   const [formType, setFormType] = useState<FormType>(null)
 
   const id = 0
@@ -22,11 +21,6 @@ const Header = () => {
   useEffect(() => {
     autoSignIn('XXX')
   }, [])
-
-  useEffect(() => {
-    console.log(user)
-    signUp('delete me')
-  }, [user])
 
   return (
     <>

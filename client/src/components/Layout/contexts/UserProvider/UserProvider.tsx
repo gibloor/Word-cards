@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { createContext, useReducer } from 'react'
 
 type UserProviderProps = {
@@ -15,6 +16,15 @@ type Action = {
   user?: User
 }
 
+type signInData = {
+  email: string,
+  password: string,
+}
+
+type signUpData = signInData & {
+  name: string
+}
+
 export const initialState: User = {
   id: 0,
   name: '',
@@ -23,9 +33,9 @@ export const initialState: User = {
 
 type UserContextType = {
   user: User
-  autoSignIn: (props: string) => void
-  handSignIn: (props: string) => void
-  signUp: (props: string) => void
+  autoSignIn: (token: string) => void
+  handSignIn: (authData: signInData) => void
+  signUp: (authData: signUpData) => void
   signOut: (props: string) => void
 }
 
@@ -36,6 +46,8 @@ export const UserContext = createContext<UserContextType>({
   signUp: () => {},
   signOut: () => {},
 })
+
+const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3001';
 
 const UserProvider = (props: UserProviderProps) => {
   const reducer = (state: User, action: Action) => {
@@ -62,25 +74,30 @@ const UserProvider = (props: UserProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const signIn = () => {
+    console.log("Hi")
     // const user = { id: 1, name: 'Pochito', permissions: 'Lord' }
     // dispatch({ type: 'signIn', user: user })
   }
 
-  const autoSignIn = (props: string) => {
-    // call to db
-
-    console.log(props)
-
-    signIn()
-  }
-
-  const handSignIn = (props: string) => {
+  const autoSignIn = (token: string) => {
     // call to db
 
     signIn()
   }
 
-  const signUp = (props: string) => {
+  const handSignIn = (authData: signInData) => {
+    // call to db
+
+    signIn()
+  }
+
+  const signUp = async (authData: signUpData) => {
+    const request = await axios.post(`http://${DOMAIN}/user/signUp`,
+      {...authData},
+    )
+
+    await console.log(request.data)
+    
     // call to db
 
     signIn()

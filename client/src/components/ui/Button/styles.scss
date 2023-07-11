@@ -9,13 +9,18 @@
   font-weight: 500;
   font-size: 1.25rem;
   
-  
   &__filled {
     background-color: #d5b495;
     color: #291a11;
   }
+  
+  &__filled[disabled] {
+    background-color: #8a7662;
+    border: 0.1rem solid #8a7662;
+  }
 }
 
-.button:hover {
-  opacity: 1;
+.button[disabled], .button[disabled]:hover {
+  cursor: wait;
 }
+

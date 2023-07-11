@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import cors from 'cors'
 
 import user from './routes/user'
 import words from './routes/words'
@@ -24,7 +25,9 @@ if (mongoString) {
 }
 
 const app = express()
+app.use(cors())
 app.use(express.json())
+
 app.use('/user', user)
 app.use('/words', words)
 
