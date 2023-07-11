@@ -1,12 +1,12 @@
 import React from 'react'
-import { Formik, Form, ErrorMessage, Field } from 'formik'
+import { Formik, Form } from 'formik'
 import OutsideClickHandler from 'react-outside-click-handler'
 
 import { FormType } from '../Header'
+import FormikField from './FormikFIeld/FormikField'
+import Button from '../../../ui/Button/Button'
 
 import './styles.scss'
-import FormikField from '../../../ui/FormikFIeld/FormikField'
-import Button from '../../../ui/Button/Button'
 
 type SignFormProps = {
   formType: FormType
@@ -28,12 +28,12 @@ const SignForm = (props: SignFormProps) => {
 
   return (
     <OutsideClickHandler onOutsideClick={() => props.changeFormType(null)}>
-      <div className='sign-form'>
+      <div className="sign-form">
         <Formik
           initialValues={{
             name: '',
             email: '',
-            password: ''
+            password: '',
           }}
           validate={(values) => {
             const errors: FormErrors = {}
@@ -55,39 +55,26 @@ const SignForm = (props: SignFormProps) => {
             if (!values.password) {
               errors.password = 'Password is required'
             } else if (!passwordRegex.test(values.password)) {
-              errors.password = 'Password must have 6+ chars, 1 uppercase, 1 lowercase, 1 digit'
+              errors.password =
+                'Password must have 6+ chars, 1 uppercase, 1 lowercase, 1 digit'
             }
 
-            return Object.keys(errors).length === 0 ? {} : errors;
+            return Object.keys(errors).length === 0 ? {} : errors
           }}
-
           onSubmit={(values) => {
             console.log(values)
           }}
         >
           {({ isSubmitting }) => (
-            <Form className='sign-form__form'>
-              {formType === 'signUp' &&
-                <FormikField
-                  label='Login'
-                  type='text'
-                  name='name'
-                />
-              }
-              <FormikField
-                label='Email'
-                type='email'
-                name='email'
-              />
-              <FormikField
-                label='Password'
-                type='password'
-                name='password'
-              />
-              <Button
-                text='Submit'
-                disabled={isSubmitting}
-              />
+            <Form className="sign-form__form">
+              <div className="sign-form__fields">
+                {formType === 'signUp' && (
+                  <FormikField label="Login" type="text" name="name" />
+                )}
+                <FormikField label="Email" type="email" name="email" />
+                <FormikField label="Password" type="password" name="password" />
+              </div>
+              <Button text="Submit" disabled={isSubmitting} filled={true} />
             </Form>
           )}
         </Formik>

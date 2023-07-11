@@ -24,7 +24,8 @@
     "build": "set SKIP_PREFLIGHT_CHECK=true && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "format": "prettier --write \"**/*.{ts,tsx}\" && npm run lint"
   },
   "eslintConfig": {
     "extends": [
@@ -51,10 +52,12 @@
     "eslint-config-standard-with-typescript": "^36.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "install": "^0.13.0",
     "npm": "^9.8.0",
+    "prettier": "^3.0.0",
     "react-router-dom": "^6.11.2",
     "typescript": "^5.1.6"
   },

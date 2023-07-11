@@ -22,51 +22,47 @@ export const initialState: User = {
 }
 
 type UserContextType = {
-  user: User;
-  autoSignIn: (props: string) => void;
-  handSignIn: (props: string) => void;
-  signUp: (props: string) => void;
-  signOut: (props: string) => void;
-};
+  user: User
+  autoSignIn: (props: string) => void
+  handSignIn: (props: string) => void
+  signUp: (props: string) => void
+  signOut: (props: string) => void
+}
 
 export const UserContext = createContext<UserContextType>({
   user: initialState,
   autoSignIn: () => {},
   handSignIn: () => {},
   signUp: () => {},
-  signOut: () => {}
-});
-
+  signOut: () => {},
+})
 
 const UserProvider = (props: UserProviderProps) => {
-
   const reducer = (state: User, action: Action) => {
     let newState = { ...state }
-  
+
     switch (action.type) {
       case 'signIn':
         if (action.user) {
           newState = action.user
         }
         break
-        
+
       case 'signOut':
         newState = { ...initialState }
         break
-  
+
       default:
         throw new Error()
     }
-  
+
     return newState
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-    
   const signIn = () => {
     // const user = { id: 1, name: 'Pochito', permissions: 'Lord' }
-
     // dispatch({ type: 'signIn', user: user })
   }
 
@@ -95,7 +91,9 @@ const UserProvider = (props: UserProviderProps) => {
   }
 
   return (
-    <UserContext.Provider value={{ user: state, autoSignIn, handSignIn, signUp, signOut: signOut }}>
+    <UserContext.Provider
+      value={{ user: state, autoSignIn, handSignIn, signUp, signOut }}
+    >
       {props.children}
     </UserContext.Provider>
   )

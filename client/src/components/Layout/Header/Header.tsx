@@ -16,7 +16,7 @@ const Header = () => {
   const { user, autoSignIn, signUp } = useContext(UserContext)
 
   const [formType, setFormType] = useState<FormType>(null)
-  
+
   const id = 0
 
   useEffect(() => {
@@ -25,54 +25,46 @@ const Header = () => {
 
   useEffect(() => {
     console.log(user)
+    signUp('delete me')
   }, [user])
-
 
   return (
     <>
-      <div className='header'>
-        <div className='header__navigation text_14'>
+      <div className="header">
+        <div className="header__navigation text_20">
           <Link to="/">
-            <img src={logo} className='header__logo' />
+            <img src={logo} className="header__logo" />
           </Link>
-          <Link to='/own-cards'>
-            Own cards
-          </Link>
-          <Link to='/public-cards'>
-            Public cards
-          </Link>
+          <Link to="/own-cards">Own cards</Link>
+          <Link to="/public-cards">Public cards</Link>
         </div>
 
-        <div className='header__authentication'>
+        <div className="header__authentication">
           <div
-            className='header__notification'
+            className="header__notification"
             tabIndex={0}
             // onKeyPress={() => (props.changeAuthVariant('login'))}
           >
-            <img className='header__notification_picture' src={notification} />
+            <img className="header__notification_picture" src={notification} />
           </div>
 
-          {user.id ?
+          {user.id ? (
             <>
-              <Link to={`/profile:${id}`}>
-                User
-              </Link>
+              <Link to={`/profile:${id}`}>User</Link>
               <Button text="Sign out" onClick={() => {}} />
-            </> :
+            </>
+          ) : (
             <>
               <Button text="Sign in" onClick={() => setFormType('signIn')} />
               <Button text="Sign up" onClick={() => setFormType('signUp')} />
             </>
-          }
+          )}
         </div>
       </div>
 
-      {formType &&
-        <SignForm
-          formType={formType}
-          changeFormType={setFormType}
-        />
-      }
+      {formType && (
+        <SignForm formType={formType} changeFormType={setFormType} />
+      )}
     </>
   )
 }

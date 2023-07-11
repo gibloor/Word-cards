@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 type TextInputProps = {
   onChange: (text: string) => void
@@ -7,13 +7,12 @@ type TextInputProps = {
 }
 
 const TextInput = (props: TextInputProps) => {
-
   return (
     <input
-      type='text'
+      type="text"
       value={props.value}
       onChange={(e) => props.onChange(e.target.value)}
-      className={`X ${props.className}`}
+      className={`${props.className ? props.className : ''}`}
     />
   )
 }

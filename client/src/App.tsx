@@ -30,7 +30,7 @@ const App = () => {
       secondLang: 'Пoчiтo2',
       status: 'passed',
       passedTimes: 0,
-    }
+    },
   ]
 
   return (
@@ -38,17 +38,20 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Main />} />
-          <Route path='own-cards'>
+          <Route path="own-cards">
             <Route index element={<OwnCards />} />
-            <Route path=':packId' element={<PackMenu />} />
-            <Route path=':packId/daily-cards' element={<Cards cards={cards} reverse={true} />} />
+            <Route path=":packId" element={<PackMenu />} />
+            <Route
+              path=":packId/daily-cards"
+              element={<Cards cards={cards} reverse={true} />}
+            />
           </Route>
           <Route path="public-packages" element={<PublicPackages />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  );
+  )
 }
 
 export default App

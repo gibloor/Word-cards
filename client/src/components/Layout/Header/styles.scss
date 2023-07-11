@@ -4,8 +4,8 @@
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  padding: 16px 32px;
-  background-color: rgb(71, 109, 111);
+  padding: 1rem 2rem;
+  background-color: #291a11;
 
   &__navigation {
     display: flex;
@@ -13,11 +13,16 @@
   }
 
   &__navigation > a {
-    margin-right: 16px;
+    margin-right: 1rem;
+    opacity: 0.85;
+  }
+
+  &__navigation > a:hover {
+    opacity: 1;
   }
 
   &__logo {
-    height: 32px;
+    height: 2rem;
   }
 
   &__authentication {
@@ -26,14 +31,28 @@
   }
 
   &__authentication > * {
-    margin-left: 16px;
+    margin-left: 1rem;
   }
 
   &__notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
+    cursor: pointer;
+    opacity: 0.85;
+    height: 1.6rem;
+    width: 2rem;
+  }
+
+  &__notification:hover {
+    opacity: 1;
   }
 
   &__notification_picture {
-    height: 16px;
+    height: 1.5rem;
+  }
+  &__notification_picture:hover {
+    height: 1.6rem;
   }
 }

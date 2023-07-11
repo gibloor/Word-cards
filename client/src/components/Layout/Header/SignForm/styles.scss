@@ -3,36 +3,26 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  height: 400px;
-  padding: 20px;
-  border-radius: 20px;
-  // d5b495, e5d1b9, 291a11
-  color: #291a11;
-  background-color: #d5b495;
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  border: 1.55rem solid transparent;
+  color: #d5b495;
+  background-color: #291a11;
   background-clip: padding-box;
-
-  border: 25px solid transparent;
+  background-image: url("./fon.png");
+  background-size: 50%;
   border-image: url("./frame.png") 50 round;
 
   &__form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    min-height: 20rem;
+    width: 25.5rem;
   }
 
-  // button[type="submit"] {
-  //   padding: 0.5rem 1rem;
-  //   font-size: 1rem;
-  //   background-color: #291a11;
-  //   color: #fff;
-  //   border: none;
-  //   border-radius: 4px;
-  //   cursor: pointer;
-  // }
-  
-  // button[type="submit"]:disabled {
-  //   opacity: 0.5;
-  //   cursor: not-allowed;
-  // }
+  &__fields {
+    width: 100%;
+  }
 }

@@ -7,14 +7,16 @@ type ButtonProps = {
   onClick?: () => void
   className?: string
   disabled?: boolean
+  filled?: boolean
 }
 
 const Button = (props: ButtonProps) => {
-
   return (
     <button
-      className={`button ${props.className}`}
-      onClick={() => props.onClick ? props.onClick() : undefined}
+      className={`button ${props.filled ? 'button__filled' : ''} ${
+        props.className ? props.className : ''
+      }`}
+      onClick={() => (props.onClick ? props.onClick() : undefined)}
       disabled={props.disabled}
     >
       {props.text}

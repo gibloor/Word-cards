@@ -1,0 +1,35 @@
+.formik-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+
+  &__label {
+    margin-bottom: 0.5rem;
+  }
+
+  &__field {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 0.0625rem solid #291a11;
+    border-radius: 0.25rem;
+  }
+
+  &__field:focus {
+    outline: none;
+    border: 0.1rem solid #291a11;
+    box-shadow: 0 0 0.625rem #e5d1b9;
+  }
+
+  &__error-message {
+    font-size: 1rem;
+    color: rgb(255, 45, 45);
+    margin-top: 0.5rem;
+    font-weight: 500;
+    // background-color: #291a11;
+    text-shadow: 1px 0 1px #291a11, 
+      0 1px 1px #291a11, 
+      -1px 0 1px #291a11, 
+      0 -1px 1px #291a11;
+  }
+}

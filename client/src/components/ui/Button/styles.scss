@@ -1,11 +1,19 @@
 .button {
   background-color: transparent;
-  border: 1px solid #FFF;
-  padding: 10px;
-  border-radius: 10px;
+  border: 0.1rem solid #d5b495;
+  padding: 0.625rem;
+  border-radius: 0.625rem;
   cursor: pointer;
-  color: #FFF;
+  color: #d5b495;
   opacity: 0.85;
+  font-weight: 500;
+  font-size: 1.25rem;
+  
+  
+  &__filled {
+    background-color: #d5b495;
+    color: #291a11;
+  }
 }
 
 .button:hover {

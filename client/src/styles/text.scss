@@ -2,19 +2,25 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  color: white;
+  color: #d5b495;
+  font-size: 16px;
+}
+
+.text_20 {
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .text_14 {
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
 .text_12 {
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 a {
-  color: #FFFFFF;
+  color: #d5b495;
   text-decoration: none;
 }
