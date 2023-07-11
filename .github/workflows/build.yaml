@@ -13,15 +13,15 @@ jobs:
           cd client
           npm install
 
-      - name: Run code style check
-        run: |
-          cd client
-          npm run lint
-
       - name: Build project
         run: |
           cd client
           npm run build
+
+      - name: Run code style check
+        run: |
+          cd client
+          npm run lint
 
       - name: Run tests
         run: |
