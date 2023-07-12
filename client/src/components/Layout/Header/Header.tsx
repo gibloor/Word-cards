@@ -13,14 +13,10 @@ import './styles.scss'
 export type FormType = null | 'signIn' | 'signUp'
 
 const Header = () => {
-  const { user, autoSignIn } = useContext(UserContext)
+  const { user, signOut } = useContext(UserContext)
   const [formType, setFormType] = useState<FormType>(null)
 
   const id = 0
-
-  useEffect(() => {
-    autoSignIn('XXX')
-  }, [])
 
   return (
     <>
@@ -42,10 +38,10 @@ const Header = () => {
             <img className="header__notification_picture" src={notification} />
           </div>
 
-          {user.id ? (
+          {user.name ? (
             <>
               <Link to={`/profile:${id}`}>User</Link>
-              <Button text="Sign out" onClick={() => {}} />
+              <Button text="Sign out" onClick={() => signOut()} />
             </>
           ) : (
             <>

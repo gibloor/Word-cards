@@ -18,6 +18,7 @@ const Button = (props: ButtonProps) => {
       }`}
       onClick={() => (props.onClick ? props.onClick() : undefined)}
       disabled={props.disabled}
+      type="submit"
     >
       {props.text}
     </button>

@@ -1,17 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 import Footer from './Footer/Footer'
 import Header from './Header/Header'
-import UserProvider, { UserContext } from './contexts/UserProvider/UserProvider'
+import UserProvider from './contexts/UserProvider/UserProvider'
 
 const Layout = () => {
-  const { autoSignIn } = useContext(UserContext)
-
-  useEffect(() => {
-    setTimeout(autoSignIn, 5000)
-  }, [])
-
   return (
     <UserProvider>
       <Header />

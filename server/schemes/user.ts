@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
   words: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Words'
+      ref: 'UserWords'
     }
   ]
 })

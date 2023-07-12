@@ -59,7 +59,7 @@ const SignForm = (props: SignFormProps) => {
     if (formType === 'signIn') {
       handSignIn(values)
     }
-    
+
     if (formType === 'signUp') {
       signUp(values)
     }
@@ -68,6 +68,7 @@ const SignForm = (props: SignFormProps) => {
   return (
     <OutsideClickHandler onOutsideClick={() => props.changeFormType(null)}>
       <div className="sign-form">
+        <div onClick={() => signOut()}>X</div>
         <Formik
           initialValues={{
             name: '',
@@ -81,7 +82,7 @@ const SignForm = (props: SignFormProps) => {
             <Form className="sign-form__form">
               <div className="sign-form__fields">
                 {formType === 'signUp' && (
-                  <FormikField label="Login" type="text" name="name" />
+                  <FormikField label="Name" type="text" name="name" />
                 )}
                 <FormikField label="Email" type="email" name="email" />
                 <FormikField label="Password" type="password" name="password" />

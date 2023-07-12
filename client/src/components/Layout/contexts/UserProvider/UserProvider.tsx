@@ -1,14 +1,13 @@
+import React, { createContext, useEffect, useReducer } from 'react'
 import axios from 'axios'
-import React, { createContext, useReducer } from 'react'
 
 type UserProviderProps = {
   children: React.ReactNode
 }
 
 type User = {
-  id: number
   name: string
-  permissions: string
+  permissions: number
 }
 
 type Action = {
@@ -17,8 +16,8 @@ type Action = {
 }
 
 type signInData = {
-  email: string,
-  password: string,
+  email: string
+  password: string
 }
 
 type signUpData = signInData & {
@@ -26,28 +25,27 @@ type signUpData = signInData & {
 }
 
 export const initialState: User = {
-  id: 0,
   name: '',
-  permissions: '',
+  permissions: 0,
 }
 
 type UserContextType = {
   user: User
-  autoSignIn: (token: string) => void
+  autoSignIn: () => void
   handSignIn: (authData: signInData) => void
   signUp: (authData: signUpData) => void
-  signOut: (props: string) => void
+  signOut: () => void
 }
 
 export const UserContext = createContext<UserContextType>({
-  user: initialState,
+  user: { ...initialState },
   autoSignIn: () => {},
   handSignIn: () => {},
   signUp: () => {},
   signOut: () => {},
 })
 
-const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3001';
+const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3001'
 
 const UserProvider = (props: UserProviderProps) => {
   const reducer = (state: User, action: Action) => {
@@ -56,7 +54,7 @@ const UserProvider = (props: UserProviderProps) => {
     switch (action.type) {
       case 'signIn':
         if (action.user) {
-          newState = action.user
+          newState = { ...action.user }
         }
         break
 
@@ -73,43 +71,70 @@ const UserProvider = (props: UserProviderProps) => {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const signIn = () => {
-    console.log("Hi")
-    // const user = { id: 1, name: 'Pochito', permissions: 'Lord' }
-    // dispatch({ type: 'signIn', user: user })
+  const signIn = (token: string, user: User) => {
+    localStorage.setItem('token', token)
+    dispatch({ type: 'signIn', user })
   }
 
-  const autoSignIn = (token: string) => {
-    // call to db
-
-    signIn()
+  const autoSignIn = async () => {
+    const localToken = await localStorage.getItem('token')
+    if (localToken) {
+      try {
+        const request = await axios.post(
+          `http://${DOMAIN}/user/autoSignIn`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localToken}`,
+            },
+          },
+        )
+        const { token, user } = request.data
+        await signIn(token, user)
+      } catch (err: any) {
+        console.log(err)
+      }
+    }
   }
 
-  const handSignIn = (authData: signInData) => {
-    // call to db
-
-    signIn()
+  const handSignIn = async (authData: signInData) => {
+    const request = await axios.post(`http://${DOMAIN}/user/signIn`, {
+      ...authData,
+    })
+    const { token, user } = request.data
+    await signIn(token, user)
   }
 
   const signUp = async (authData: signUpData) => {
-    const request = await axios.post(`http://${DOMAIN}/user/signUp`,
-      {...authData},
-    )
-
-    await console.log(request.data)
-    
-    // call to db
-
-    signIn()
+    try {
+      const request = await axios.post(`http://${DOMAIN}/user/signUp`, {
+        ...authData,
+      })
+      const { token, user } = request.data
+      await signIn(token, user)
+    } catch (err: any) {
+      console.log(err.response.data.message)
+    }
   }
 
-  const signOut = (props: string) => {
-    dispatch({ type: 'signOut' })
+  const signOut = async () => {
+    localStorage.removeItem('token')
+    await dispatch({ type: 'signOut' })
   }
+
+  useEffect(() => {
+    autoSignIn()
+  }, [])
 
   return (
     <UserContext.Provider
-      value={{ user: state, autoSignIn, handSignIn, signUp, signOut }}
+      value={{
+        user: state,
+        autoSignIn,
+        handSignIn,
+        signUp,
+        signOut,
+      }}
     >
       {props.children}
     </UserContext.Provider>
