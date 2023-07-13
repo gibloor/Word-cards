@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Button from '../../ui/Button/Button'
@@ -25,8 +25,8 @@ const Header = () => {
           <Link to="/">
             <img src={logo} className="header__logo" />
           </Link>
-          <Link to="/own-cards">Own cards</Link>
-          <Link to="/public-cards">Public cards</Link>
+          <Link to="/own-words">Own words</Link>
+          <Link to="/public-packs">Public packs</Link>
         </div>
 
         <div className="header__authentication">

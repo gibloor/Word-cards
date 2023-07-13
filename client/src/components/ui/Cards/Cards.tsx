@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 import Button from '../Button/Button'
 import TextInput from '../TextInput/TextInput'
@@ -13,12 +14,14 @@ export type Card = {
 }
 
 type CardsProps = {
-  cards: Card[]
-  reverse: boolean
+  // cards: Card[]
+  // reverse: boolean
 }
 
 const Cards = (props: CardsProps) => {
-  const { cards, reverse } = props
+  const { packId, reverse } = useParams();
+  const cards: Card[] = [] // get from context
+  // const reverse = true // get from url
 
   const [activeCard, setActiveCard] = useState(0)
   const [answer, setAnswer] = useState('')

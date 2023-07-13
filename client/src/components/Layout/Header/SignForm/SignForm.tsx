@@ -4,7 +4,7 @@ import OutsideClickHandler from 'react-outside-click-handler'
 
 import { FormType } from '../Header'
 import FormikField from './FormikFIeld/FormikField'
-import Button from '../../../ui/Button/Button'
+import Button from 'components/ui/Button/Button'
 import { UserContext } from 'components/Layout/contexts/UserProvider/UserProvider'
 
 import './styles.scss'
@@ -21,8 +21,10 @@ type FormValue = {
 }
 
 const SignForm = (props: SignFormProps) => {
-  const { signUp, signOut, handSignIn } = useContext(UserContext)
-  const { formType } = props
+  const { formType, changeFormType } = props
+  const { signUp, handSignIn } = useContext(UserContext)
+
+  const reverseForm = formType === 'signIn' ? 'signUp' : 'signIn'
 
   const nameRegex = /^[a-zA-Z0-9]{3,20}$/
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
@@ -55,20 +57,43 @@ const SignForm = (props: SignFormProps) => {
     return Object.keys(errors).length === 0 ? {} : errors
   }
 
-  const onSubmit = (values: FormValue) => {
+  const onSubmit = async (values: FormValue) => {
+    let response: string | boolean = false
+
     if (formType === 'signIn') {
-      handSignIn(values)
+      response = await handSignIn(values)
     }
 
     if (formType === 'signUp') {
-      signUp(values)
+      response =await signUp(values)
+    }
+
+    if (response === true) {
+      changeFormType(null)
+    } else if (response) {
+      console.log(response)
+    } else {
+      console.error('Authentications does\'t work correct')
     }
   }
 
   return (
-    <OutsideClickHandler onOutsideClick={() => props.changeFormType(null)}>
+    <OutsideClickHandler onOutsideClick={() => changeFormType(null)}>
       <div className="sign-form">
-        <div onClick={() => signOut()}>X</div>
+        <div className="sign-form__close-button_container">
+          <span
+            className="sign-form__close-button"
+            tabIndex={0}
+            onClick={() => changeFormType(null)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                changeFormType(null)
+              }
+            }}
+          >
+            X
+          </span>
+        </div>
         <Formik
           initialValues={{
             name: '',
@@ -87,7 +112,20 @@ const SignForm = (props: SignFormProps) => {
                 <FormikField label="Email" type="email" name="email" />
                 <FormikField label="Password" type="password" name="password" />
               </div>
-              <Button text="Submit" disabled={isSubmitting} filled={true} />
+              <div className="sign-form__buttons">
+                <Button text="Submit" disabled={isSubmitting} filled={true} />
+                <span
+                  onClick={() => changeFormType(reverseForm)}
+                  tabIndex={0}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                      changeFormType(reverseForm)
+                    }
+                  }}
+                >
+                  {reverseForm}
+                </span>
+              </div>
             </Form>
           )}
         </Formik>

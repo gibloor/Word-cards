@@ -14,6 +14,16 @@
   border-image: url("./frame.png") 50 round;
   z-index: 999;
 
+  &__close-button_container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  &__close-button {
+    cursor: pointer;
+  }
+
   &__form {
     display: flex;
     flex-direction: column;
@@ -25,5 +35,16 @@
 
   &__fields {
     width: 100%;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__buttons > span {
+    margin-top: 10px;
+    cursor: pointer;
   }
 }

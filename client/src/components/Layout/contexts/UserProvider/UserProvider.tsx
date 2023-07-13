@@ -32,16 +32,16 @@ export const initialState: User = {
 type UserContextType = {
   user: User
   autoSignIn: () => void
-  handSignIn: (authData: signInData) => void
-  signUp: (authData: signUpData) => void
+  handSignIn: (authData: signInData) => Promise<true | string>
+  signUp: (authData: signUpData) => Promise<true | string>
   signOut: () => void
 }
 
 export const UserContext = createContext<UserContextType>({
   user: { ...initialState },
   autoSignIn: () => {},
-  handSignIn: () => {},
-  signUp: () => {},
+  handSignIn: async () => {return true},
+  signUp: async () => {return true},
   signOut: () => {},
 })
 
@@ -92,17 +92,24 @@ const UserProvider = (props: UserProviderProps) => {
         const { token, user } = request.data
         await signIn(token, user)
       } catch (err: any) {
-        console.log(err)
+        console.error(err)
       }
     }
   }
 
   const handSignIn = async (authData: signInData) => {
-    const request = await axios.post(`http://${DOMAIN}/user/signIn`, {
-      ...authData,
-    })
-    const { token, user } = request.data
-    await signIn(token, user)
+    try {
+      const request = await axios.post(`http://${DOMAIN}/user/signIn`, {
+        ...authData,
+      })
+      const { token, user } = request.data
+      await signIn(token, user)
+
+      return true
+    } catch (err: any) {
+      console.error(err.response.data.message)
+      return err.response.data.message
+    }
   }
 
   const signUp = async (authData: signUpData) => {
@@ -112,8 +119,11 @@ const UserProvider = (props: UserProviderProps) => {
       })
       const { token, user } = request.data
       await signIn(token, user)
+
+      return true
     } catch (err: any) {
-      console.log(err.response.data.message)
+      console.error(err.response.data.message)
+      return err.response.data.message
     }
   }
 

@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 const PackMenu = () => {
   return (
     <div>
-      <Link to="daily-cards">
-        <span>Daily cards</span>
+      <Link to="daily-words">
+        <span>Daily words</span>
       </Link>
 
-      <div>Week cards</div>
+      <div>Week words</div>
 
-      <div>All cards</div>
+      <div>All words</div>
     </div>
   )
 }

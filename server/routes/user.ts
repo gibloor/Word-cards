@@ -7,10 +7,14 @@ import User from '../schemes/user'
 const user = express.Router()
 
 const createToken = async (id: string) => {
-  const secretKey = process.env.SECRET_KEY || ''
+  try {
+    const secretKey = process.env.SECRET_KEY || ''
 
-  const token = await jwt.sign({ id }, secretKey, { expiresIn: '7d' })
-  return token
+    const token = await jwt.sign({ id }, secretKey, { expiresIn: '7d' })
+    return token
+  } catch (error) {
+    throw new Error('Failed to create token');
+  }
 }
 
 const validateToken = (req: Request, res: Response, next: NextFunction) => {
@@ -27,7 +31,7 @@ const validateToken = (req: Request, res: Response, next: NextFunction) => {
         return res.json('Wrong token')
       }
 
-      req.body.id = user.id;
+      req.body.id = user.id
       next()
     })
   } catch (error) {
@@ -78,7 +82,11 @@ user.post('/signIn', async (req, res) => {
         const user = { name: userData.name, permissions: 0 }
 
         await res.json({ token, user })
+      } else {
+        res.status(400).json({ message: 'Invalid email or password' });
       }
+    } else {
+      res.status(400).json({ message: 'Invalid email or password' });
     }
   } catch (error: any) {
     res.status(400).json({message: error.message})
@@ -93,6 +101,8 @@ user.post('/autoSignIn', validateToken, async (req, res) => {
       const token = await createToken(userData._id.toString())
       
       await res.json({ token, user })
+    } else {
+      res.status(400).json({ message: 'User not found' });
     }
   } catch (error: any) {
     res.status(400).json({message: error.message})

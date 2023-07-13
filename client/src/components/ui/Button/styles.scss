@@ -20,7 +20,11 @@
   }
 }
 
-.button[disabled], .button[disabled]:hover {
+.button:not([disabled]):hover {
+  opacity: 1;
+}
+
+.button[disabled] {
   cursor: wait;
 }
 
