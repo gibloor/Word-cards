@@ -79,7 +79,7 @@ const SignForm = (props: SignFormProps) => {
 
   return (
     <OutsideClickHandler onOutsideClick={() => changeFormType(null)}>
-      <div className="sign-form">
+      <div className="sign-form styled-window styled-border">
         <div className="sign-form__close-button_container">
           <span
             className="sign-form__close-button"

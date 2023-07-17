@@ -1,17 +1,10 @@
+@import '../../../../styles/colors.scss';
+
 .sign-form {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 1.25rem;
-  border-radius: 1.25rem;
-  border: 1.55rem solid transparent;
-  color: #d5b495;
-  background-color: #291a11;
-  background-clip: padding-box;
-  background-image: url("./fon.png");
-  background-size: 50%;
-  border-image: url("./frame.png") 50 round;
   z-index: 999;
 
   &__close-button_container {
@@ -44,7 +37,7 @@
   }
 
   &__buttons > span {
-    margin-top: 10px;
+    margin-top: 0.625rem;
     cursor: pointer;
   }
 }

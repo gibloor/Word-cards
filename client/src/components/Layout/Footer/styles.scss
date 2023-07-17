@@ -1,5 +1,7 @@
+@import '../../../styles/colors.scss';
+
 .footer {
-  background-color: #291a11;;
+  background-color: $dark-color;
   width: 100%;
   padding: 1.25rem;
   box-sizing: border-box;

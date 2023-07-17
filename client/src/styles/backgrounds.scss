@@ -1,0 +1,20 @@
+.styled-window {
+  background-color: $dark-color;
+  background-clip: padding-box;
+  background-image: url("./assets/fon.png");
+  background-size: 50%;
+}
+
+.styled-background {
+  background-color: $dark-color;
+  background-clip: padding-box;
+  background-image: url("./assets/fon.png");
+  background-size: 15%;
+}
+
+.styled-border {
+  border: 1.55rem solid transparent;
+  border-radius: 0.75rem;
+  border-image: url("./assets/frame.png") 50 round;
+  padding: 1.25rem;
+}

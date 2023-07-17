@@ -6,11 +6,12 @@ const usersWord = new mongoose.Schema({
     type: String,
     unique: true,
   },
-  language: {
+
+  packId: {
     required: true,
     type: String,
-    enum: ['eng'],
   },
+  
   сonfirmations: {
     required: true,
     type: Number,

@@ -1,3 +1,5 @@
+@import '../../../../../styles/colors.scss';
+
 .formik-field {
   display: flex;
   flex-direction: column;
@@ -11,14 +13,14 @@
   &__field {
     padding: 0.5rem;
     font-size: 1rem;
-    border: 0.0625rem solid #291a11;
+    border: 0.0625rem solid $dark-color;
     border-radius: 0.25rem;
   }
 
   &__field:focus {
     outline: none;
-    border: 0.1rem solid #291a11;
-    box-shadow: 0 0 0.625rem #e5d1b9;
+    border: 0.1rem solid $dark-color;
+    box-shadow: 0 0 0.625rem $light-color;
   }
 
   &__error-message {
@@ -26,10 +28,10 @@
     color: rgb(255, 45, 45);
     margin-top: 0.5rem;
     font-weight: 500;
-    // background-color: #291a11;
-    text-shadow: 1px 0 1px #291a11, 
-      0 1px 1px #291a11, 
-      -1px 0 1px #291a11, 
-      0 -1px 1px #291a11;
+    // background-color: $dark-color;
+    text-shadow: 1px 0 1px $dark-color, 
+      0 1px 1px $dark-color, 
+      -1px 0 1px $dark-color, 
+      0 -1px 1px $dark-color;
   }
 }

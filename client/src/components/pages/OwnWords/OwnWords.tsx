@@ -1,92 +1,81 @@
-import React, { useContext } from 'react'
-import { UserWordsContext } from 'components/Layout/contexts/UserWordsProvider/UserWordsProvider'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import './styles.scss'
+import { UserPacksContext } from 'components/Layout/contexts/UserPacksProvider/UserPacksProvider'
 import Button from 'components/ui/Button/Button'
 
+import arrow from './arrow.gif'
+
+import './styles.scss'
+
+const EXCEPTION_NAME = 'newPackage'
+
 const OwnWords = () => {
-  // const { userWords } = useContext(UserWordsContext)
+  const navigate = useNavigate()
 
-  {/* 3 types of tests */}
-  const languagesPacks = [
-    {
-      title: 'Daily words',
-    },
-    {
-      title: 'Week words',
-    },
-    {
-      title: 'All words',
-    },
-  ]
+  const { userPacks } = useContext(UserPacksContext)
+  const { packName } = useParams()
 
-  const userWords = {
-    words: [
-      {
-        language: 'eng'
-      },
-      {
-        language: 'ru'
-      },
-    ]
+  const changeActivePackage = (packageName: string | null) => {
+    navigate(`/own-words/${packageName}`)
   }
 
   return (
-    <div className="own-words">
+    <div className="own-words styled-background">
       {/* {
         userWords.words.map(words => (
           <div>{words.language}</div>
         ))
       } */}
+      {packName || userPacks.packs.length ? (
+        <div className="own-words__main-menu styled-border">
+          
+          <div className="own-words__main-menu_buttons">
+            <Button
+              text='Add package'
+              onClick={() => changeActivePackage(EXCEPTION_NAME)}
+              filled={true}
+            />
 
-      <div className="own-words__menu">
-        <Button
-          text='Add language'
-          onClick={() => {}}
-          filled={true}
-        />
-        {userWords.words.map(words => (
-          <Button
-            key={words.language}
-            text={words.language}
-            onClick={() => {}}
-            filled={true}
-          />
-        ))}
-      </div>
+            {userPacks.packs.map(pack => (
+              <Button text={pack.name} />
+            ))}
+          </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        
-        <p>button Add language</p>
+          <div>
+            {EXCEPTION_NAME}
+            <div> PackName or input with PackName </div>
 
-        <p>|</p>
+            <div>
+              2 types of menu
+            </div>
+          </div>
 
-        <p>else </p>
+        </div>
+      ) : (
+        <div className="own-words__emptiness-menu">
+          <div className="own-words__emptiness-menu_container">
+            <img src={arrow} alt='arrow' className="own-words__emptiness-menu_arrow own-words__emptiness-menu_left-arrow" />
+            <Button
+              text='Add package'
+              onClick={() => changeActivePackage(EXCEPTION_NAME)}
+              filled={true}
+              // className="own-words__emptiness-menu_button"
+            />
+            <img src={arrow} alt='arrow' className="own-words__emptiness-menu_arrow own-words__emptiness-menu_right-arrow" />
+          </div>
 
-        <p>|</p>
+          <span  className="own-words__emptiness-menu_text">
+            You don't have a single package.
+          </span>
+        </div>
+      )}
+      
 
-        <p>Languages...</p>
-        <p>&</p>
-        <p>button Add language</p>
+      
 
-        <p>|</p>
 
-        <p>1. click on language = languagesPacks - column</p>
 
-        <p>|</p>
-
-        <p> 2. button Add language - menu with choosing language. menu with hand adding and excel adding</p>
-
-      </div>
-
-      {/* <div>
-        {languagesPacks.map((pack) => (
-          <Link key={pack.id} to={`${pack.id}`}>
-            <span>{pack.title}</span>
-            <span>{`${pack.firstLanguage}/${pack.secondLanguage}`}</span>
-          </Link>
-        ))}
-      </div> */}
     </div>
   )
 }

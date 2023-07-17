@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer, useContext } from 'react'
 import axios from 'axios'
 import { UserContext } from '../UserProvider/UserProvider'
 
-type UserWordsProviderProps = {
+type UserPacksProviderProps = {
   children: React.ReactNode
 }
 
@@ -11,14 +11,15 @@ type Word = {
   word: string
 }
 
-type UserWords = {
-  language: 'eng' | 'ru'
+type UserPacks = {
+  name: string
   words: Word[]
 }
 
 type Action = {
+  type: 'getPack' | 'getPackNames'
   // type: 'signIn' | 'signOut'
-  // user?: UserWords
+  // user?: UserPacks
 }
 
 // type signInData = {
@@ -31,19 +32,19 @@ type Action = {
 // }
 
 type State = {
-  words: UserWords[]
+  packs: UserPacks[]
   error: boolean
   pending: boolean
 }
 
 export const initialState: State = {
-  words: [],
+  packs: [],
   error: false,
   pending: false,
 }
 
-type UserWordsContextType = {
-  userWords: State
+type UserPacksContextType = {
+  userPacks: State
   getWords: () => Promise<true | string>
   addWord: () => Promise<true | string>
   addWords: () => Promise<true | string>
@@ -51,8 +52,8 @@ type UserWordsContextType = {
   deleteWord: () => Promise<true | string>
 }
 
-export const UserWordsContext = createContext<UserWordsContextType>({
-  userWords: { ...initialState },
+export const UserPacksContext = createContext<UserPacksContextType>({
+  userPacks: { ...initialState },
   getWords: async () => {return true},
   addWord: async () => {return true},
   addWords: async () => {return true},
@@ -62,13 +63,13 @@ export const UserWordsContext = createContext<UserWordsContextType>({
 
 const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3001'
 
-const UserWordsProvider = (props: UserWordsProviderProps) => {
+const UserPacksProvider = (props: UserPacksProviderProps) => {
   const { user } = useContext(UserContext)
 
   const reducer = (state: State, action: Action) => {
     let newState = { ...state }
 
-    // switch (action.type) {
+    switch (action.type) {
     //   case 'signIn':
     //     if (action.user) {
     //       newState = { ...action.user }
@@ -79,9 +80,9 @@ const UserWordsProvider = (props: UserWordsProviderProps) => {
     //     newState = { ...initialState }
     //     break
 
-    //   default:
-    //     throw new Error()
-    // }
+      default:
+        throw new Error()
+    }
 
     return newState
   }
@@ -204,9 +205,9 @@ const UserWordsProvider = (props: UserWordsProviderProps) => {
   }, [user.name])
 
   return (
-    <UserWordsContext.Provider
+    <UserPacksContext.Provider
       value={{
-        userWords: state,
+        userPacks: state,
         getWords,
         addWord,
         addWords,
@@ -215,8 +216,8 @@ const UserWordsProvider = (props: UserWordsProviderProps) => {
       }}
     >
       {props.children}
-    </UserWordsContext.Provider>
+    </UserPacksContext.Provider>
   )
 }
 
-export default UserWordsProvider
+export default UserPacksProvider
