@@ -105,14 +105,14 @@ const Cards = (props: CardsProps) => {
           <Button
             text="Submit"
             onClick={onSubmit}
-            className=""
             disabled={answered}
+            type='text'
           />
           <Button
             text="Next"
             onClick={nextCard}
-            className=""
             disabled={!answered}
+            type='text'
           />
         </div>
       </div>

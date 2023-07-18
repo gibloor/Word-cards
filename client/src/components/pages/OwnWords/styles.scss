@@ -7,7 +7,7 @@
   justify-content: center;
   align-items: center;
 
-  &__main-menu {
+  &__container {
     display: flex;
     width: 80rem;
     height: 80rem;
@@ -16,44 +16,24 @@
     background-color: $dark-color;
   }
 
-  &__main-menu_buttons {
-    padding: 0.25rem 1.5rem 1.5rem 0.25rem;
+  &__container_buttons {
+    border-right: 1.55rem solid transparent;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
   }
 
-  // &__menu_container {
-  //   display: flex;
-  // }
+  &__container_buttons > button {
+    margin-bottom: 1.25rem;
+  }
 
-  // &__menu {
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  // }
-  
-  // &__main-menu {
-
-  // }
-
-  // &__main-menu > * {
-  //   margin-bottom: 1.5rem;
-  // }
-
-  // &__main-menu > *:last-child {
-  //   margin-bottom: 0rem;
-  // }
-
-  // &__individual-menu {
-
-  // }
+  &__container_buttons > button:last-child {
+    margin-bottom: 0rem;
+  }
 
   &__emptiness-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    // background-color: $dark-color;
-    // padding: 1.5rem;
-    // border-radius: 1.5rem;
   }
   
   &__emptiness-menu_container {
@@ -82,5 +62,44 @@
     // color: $normal-color;
     color: $light-color;
     // color: $middle-color;
+  }
+
+  &__menu {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow: auto;
+  }
+  
+  &__menu_package-name {
+    max-width: 30rem;
+  }
+
+  &__menu_word-fields {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__menu_word-field_container {
+    display: flex;
+    flex-basis: 48.5%;
+  }
+
+  &__menu_word-field {
+    padding: 0.25rem;
+    font-size: 1rem;
+    border: 0.0625rem solid $dark-color;
+    border-radius: 0.25rem;
+    flex-grow: 1;
+  }
+
+  &__menu_word-field:focus {
+    outline: none;
+    border: 0.1rem solid $dark-color;
+    box-shadow: 0 0 0.625rem $light-color;
+  }
+  
+  &__menu_delete-button {
+    margin-left: 0.25rem;
   }
 }

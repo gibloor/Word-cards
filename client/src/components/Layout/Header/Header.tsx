@@ -41,12 +41,12 @@ const Header = () => {
           {user.name ? (
             <>
               <Link to={`/profile:${id}`}>User</Link>
-              <Button text="Sign out" onClick={() => signOut()} />
+              <Button text="Sign out" onClick={() => signOut()} type='text' />
             </>
           ) : (
             <>
-              <Button text="Sign in" onClick={() => setFormType('signIn')} />
-              <Button text="Sign up" onClick={() => setFormType('signUp')} />
+              <Button text="Sign in" onClick={() => setFormType('signIn')} type='text' />
+              <Button text="Sign up" onClick={() => setFormType('signUp')} type='text' />
             </>
           )}
         </div>

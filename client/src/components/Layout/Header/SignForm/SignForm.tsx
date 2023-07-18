@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
 import { Formik, Form } from 'formik'
 import OutsideClickHandler from 'react-outside-click-handler'
+import * as Yup from 'yup'
 
 import { FormType } from '../Header'
-import FormikField from './FormikFIeld/FormikField'
+import FormikField from 'components/ui/FormikFIeld/FormikField'
 import Button from 'components/ui/Button/Button'
 import { UserContext } from 'components/Layout/contexts/UserProvider/UserProvider'
 
@@ -26,36 +27,23 @@ const SignForm = (props: SignFormProps) => {
 
   const reverseForm = formType === 'signIn' ? 'signUp' : 'signIn'
 
-  const nameRegex = /^[a-zA-Z0-9]{3,20}$/
-  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-
-  const validate = (values: FormValue) => {
-    const errors: Partial<FormValue> = {}
-
-    if (formType === 'signUp') {
-      if (!values.name) {
-        errors.name = 'Name is required'
-      } else if (!nameRegex.test(values.name)) {
-        errors.name = 'Invalid name format'
-      }
-    }
-
-    if (!values.email) {
-      errors.email = 'Email is required'
-    } else if (!emailRegex.test(values.email)) {
-      errors.email = 'Invalid email format'
-    }
-
-    if (!values.password) {
-      errors.password = 'Password is required'
-    } else if (!passwordRegex.test(values.password)) {
-      errors.password =
-        'Password must have 6+ chars, 1 uppercase, 1 lowercase, 1 digit'
-    }
-
-    return Object.keys(errors).length === 0 ? {} : errors
-  }
+  const validationSchema = Yup.object().shape({
+    name: formType === 'signUp'
+    ? Yup.string()
+      .required('Name is required')
+      .min(3, 'Name must be at least 3 characters')
+      .max(20, 'Name must be at most 20 characters')
+      .matches(/^[a-zA-Z0-9_-]{3,20}$/, 'Invalid name format')
+    : Yup.string(),
+    email: Yup.string().required('Email is required').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters')
+      .max(200, 'Password must be shorter than 200 characters')
+      .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+      .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+      .matches(/\d/, 'Password must contain at least one digit')
+  });
 
   const onSubmit = async (values: FormValue) => {
     let response: string | boolean = false
@@ -100,7 +88,8 @@ const SignForm = (props: SignFormProps) => {
             email: '',
             password: '',
           }}
-          validate={validate}
+          validationSchema={validationSchema}
+          // validate={validate}
           onSubmit={onSubmit}
         >
           {({ isSubmitting }) => (
@@ -113,7 +102,7 @@ const SignForm = (props: SignFormProps) => {
                 <FormikField label="Password" type="password" name="password" />
               </div>
               <div className="sign-form__buttons">
-                <Button text="Submit" disabled={isSubmitting} filled={true} />
+                <Button text="Submit" disabled={isSubmitting} filled={true} type='text' />
                 <span
                   onClick={() => changeFormType(reverseForm)}
                   tabIndex={0}

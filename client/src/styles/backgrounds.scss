@@ -16,5 +16,12 @@
   border: 1.55rem solid transparent;
   border-radius: 0.75rem;
   border-image: url("./assets/frame.png") 50 round;
-  padding: 1.25rem;
+}
+
+.styled-border-image {
+  border-image: url("./assets/frame.png") 50 round;
+}
+
+.error-field {
+  border-color: red;
 }

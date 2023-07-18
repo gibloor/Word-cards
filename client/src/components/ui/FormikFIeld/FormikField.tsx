@@ -1,5 +1,5 @@
 import React from 'react'
-import { ErrorMessage, Field } from 'formik'
+import { ErrorMessage, FastField } from 'formik'
 
 import './styles.scss'
 
@@ -7,17 +7,18 @@ type FormikFieldProps = {
   label: string
   type: string
   name: string
+  className?: string
 }
 
 const FormikField = (props: FormikFieldProps) => {
-  const { label, type, name } = props
+  const { label, type, name, className } = props
 
   return (
-    <div className="formik-field">
+    <div className={`formik-field ${className ? className : ''}`}>
       <label className="formik-field__label text_20" htmlFor={name}>
         {label}
       </label>
-      <Field
+      <FastField
         type={type}
         id={name}
         name={name}
