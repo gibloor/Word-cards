@@ -7,7 +7,7 @@ export type PackDocument = Document & {
   language: string
   dailyCheck: Date | null
   weekCheck: Date | null
-  allCheck: Date | null
+  monthCheck: Date | null
 }
 
 const packSchema = new mongoose.Schema({
@@ -31,7 +31,7 @@ const packSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
-  allCheck: {
+  monthCheck: {
     type: Date,
     default: null,
   },

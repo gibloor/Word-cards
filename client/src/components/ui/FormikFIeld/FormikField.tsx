@@ -1,7 +1,7 @@
 import React, { FocusEvent, useState } from 'react'
 import { ErrorMessage, Field, useFormikContext } from 'formik'
 
-import { FormValue } from 'components/pages/OwnWords/OwnWords'
+import { Package } from 'components/pages/OwnWords/AddPack/AddPack'
 
 import './styles.scss'
 
@@ -45,7 +45,7 @@ const FormikField = (props: FormikFieldProps) => {
 
   const [showSelector, setShowSelector] = useState(false)
 
-  const formik = useFormikContext<FormValue>()
+  const formik = useFormikContext<Package>()
 
   const hideSelector = (e: FocusEvent<HTMLInputElement>) =>
     setTimeout(() => {

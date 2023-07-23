@@ -1,0 +1,79 @@
+@import '../../../../styles/colors.scss';
+
+.add-pack {
+  flex-grow: 1;
+  padding: 1.5rem;
+  overflow: auto;
+  
+  &__package-name {
+    max-width: 30rem;
+  }
+
+  &__language {
+    width: 7.5rem;
+  }
+
+  &__word-fields {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  &__word-field_container {
+    display: flex;
+    align-items: center;
+    flex-basis: 48.5%;
+  }
+
+  &__word-field {
+    padding: 0.25rem;
+    font-size: 1rem;
+    border: 0.0625rem solid $dark-color;
+    border-radius: 0.25rem;
+    flex-grow: 1;
+  }
+
+  &__word-field:focus {
+    outline: none;
+    border: 0.1rem solid $dark-color;
+    box-shadow: 0 0 0.625rem $light-color;
+  }
+  
+  &__delete-button {
+    margin-left: 0.25rem;
+  }
+
+  &__buttons_container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  &__buttons > button {
+    margin-right: 0.5rem;
+  }
+
+  &__buttons > button:last-child {
+    margin-right: 0rem;
+  }
+
+  &__container {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+
+  &__container > div {
+    margin-right: 1rem;
+  }
+
+  &__container > div:last-child {
+    margin-right: 0rem;
+  }
+}

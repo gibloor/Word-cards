@@ -31,7 +31,7 @@ const packFromDB = async (DBpack: PackDocument, DBwords:WordDocument[]) => {
     language: DBpack.language,
     dailyCheck: DBpack.dailyCheck,
     weekCheck: DBpack.weekCheck,
-    allCheck: DBpack.allCheck,
+    monthCheck: DBpack.monthCheck,
     words: words,
   }
 

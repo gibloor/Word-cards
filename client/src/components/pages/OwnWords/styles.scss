@@ -9,10 +9,8 @@
 
   &__container {
     display: flex;
-    width: 80rem;
-    height: 80rem;
-    max-width: 80%;
-    max-height: 80%;
+    width: 80%;
+    height: 80%;
     background-color: $dark-color;
   }
 
@@ -32,118 +30,5 @@
 
   &__container_buttons > button:last-child {
     margin-bottom: 0rem;
-  }
-
-  &__emptiness-menu {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  &__emptiness-menu_container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
-
-  &__emptiness-menu_arrow {
-    height: 3rem;
-  }
-
-  &__emptiness-menu_left-arrow {
-    height: 3rem;
-    margin-right: 1rem;
-  }
-
-  &__emptiness-menu_right-arrow {
-    height: 3rem;
-    margin-left: 1rem;
-    transform: scaleX(-1);
-  }
-
-  &__emptiness-menu_text {
-    // color: $dark-color;
-    // color: $normal-color;
-    color: $light-color;
-    // color: $middle-color;
-  }
-
-  &__menu {
-    flex-grow: 1;
-    // width: 800px;
-    padding: 1.5rem;
-    overflow: auto;
-  }
-  
-  &__menu_package-name {
-    max-width: 30rem;
-  }
-
-  &__menu_language {
-    width: 7.5rem;
-  }
-
-  &__menu_word-fields {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  &__menu_word-field_container {
-    display: flex;
-    align-items: center;
-    flex-basis: 48.5%;
-  }
-
-  &__menu_word-field {
-    padding: 0.25rem;
-    font-size: 1rem;
-    border: 0.0625rem solid $dark-color;
-    border-radius: 0.25rem;
-    flex-grow: 1;
-  }
-
-  &__menu_word-field:focus {
-    outline: none;
-    border: 0.1rem solid $dark-color;
-    box-shadow: 0 0 0.625rem $light-color;
-  }
-  
-  &__menu_delete-button {
-    margin-left: 0.25rem;
-  }
-
-  &__menu_buttons_container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  &__menu_buttons {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  &__menu_buttons > button {
-    margin-right: 0.5rem;
-  }
-
-  &__menu_buttons > button:last-child {
-    margin-right: 0rem;
-  }
-
-  &__menu_container {
-    display: flex;
-    margin-bottom: 1rem;
-  }
-
-  &__menu_container > div {
-    margin-right: 1rem;
-  }
-
-  &__menu_container > div:last-child {
-    margin-right: 0rem;
   }
 }

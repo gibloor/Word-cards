@@ -2,7 +2,7 @@ import React, { createContext, useReducer, useContext, useEffect } from 'react'
 import axios from 'axios'
 
 import { UserContext } from '../UserProvider/UserProvider'
-import { FormValue } from 'components/pages/OwnWords/OwnWords'
+import { Package } from 'components/pages/OwnWords/AddPack/AddPack'
 
 type UserPacksProviderProps = {
   children: React.ReactNode
@@ -19,7 +19,7 @@ type Pack = {
   language: string
   dailyCheck: null | Date
   weekCheck: null | Date
-  allCheck: null | Date
+  monthCheck: null | Date
   words: Word[]
 }
 
@@ -44,13 +44,13 @@ export const initialState: State = {
 
 type UserPacksContextType = {
   userPacks: State
-  createPack: (pack: FormValue) => Promise<string>
+  createPack: (pack: Package) => Promise<string>
   getOwnPacks: () => Promise<true | string>
 }
 
 export const UserPacksContext = createContext<UserPacksContextType>({
   userPacks: { ...initialState },
-  createPack: async (pack: FormValue) => {
+  createPack: async (pack: Package) => {
     return ''
   },
   getOwnPacks: async () => {
@@ -88,7 +88,7 @@ const UserPacksProvider = (props: UserPacksProviderProps) => {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const createPack = async (pack: FormValue) => {
+  const createPack = async (pack: Package) => {
     try {
       const localToken = (await localStorage.getItem('token')) || ''
 
