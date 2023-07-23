@@ -28,22 +28,25 @@ const SignForm = (props: SignFormProps) => {
   const reverseForm = formType === 'signIn' ? 'signUp' : 'signIn'
 
   const validationSchema = Yup.object().shape({
-    name: formType === 'signUp'
-    ? Yup.string()
-      .required('Name is required')
-      .min(3, 'Name must be at least 3 characters')
-      .max(20, 'Name must be at most 20 characters')
-      .matches(/^[a-zA-Z0-9_-]{3,20}$/, 'Invalid name format')
-    : Yup.string(),
-    email: Yup.string().required('Email is required').matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format'),
+    name:
+      formType === 'signUp'
+        ? Yup.string()
+            .required('Name is required')
+            .min(3, 'Name must be at least 3 characters')
+            .max(20, 'Name must be at most 20 characters')
+            .matches(/^[a-zA-Z0-9_-]{3,20}$/, 'Invalid name format')
+        : Yup.string(),
+    email: Yup.string()
+      .required('Email is required')
+      .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format'),
     password: Yup.string()
       .required('Password is required')
       .min(6, 'Password must be at least 6 characters')
       .max(200, 'Password must be shorter than 200 characters')
       .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
       .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
-      .matches(/\d/, 'Password must contain at least one digit')
-  });
+      .matches(/\d/, 'Password must contain at least one digit'),
+  })
 
   const onSubmit = async (values: FormValue) => {
     let response: string | boolean = false
@@ -53,7 +56,7 @@ const SignForm = (props: SignFormProps) => {
     }
 
     if (formType === 'signUp') {
-      response =await signUp(values)
+      response = await signUp(values)
     }
 
     if (response === true) {
@@ -61,7 +64,7 @@ const SignForm = (props: SignFormProps) => {
     } else if (response) {
       console.log(response)
     } else {
-      console.error('Authentications does\'t work correct')
+      console.error("Authentications does't work correct")
     }
   }
 
@@ -102,7 +105,12 @@ const SignForm = (props: SignFormProps) => {
                 <FormikField label="Password" type="password" name="password" />
               </div>
               <div className="sign-form__buttons">
-                <Button text="Submit" disabled={isSubmitting} filled={true} type='text' />
+                <Button
+                  text="Submit"
+                  disabled={isSubmitting}
+                  filled={true}
+                  type="text"
+                />
                 <span
                   onClick={() => changeFormType(reverseForm)}
                   tabIndex={0}

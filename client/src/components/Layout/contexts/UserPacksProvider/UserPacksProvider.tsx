@@ -1,6 +1,8 @@
-import React, { createContext, useEffect, useReducer, useContext } from 'react'
+import React, { createContext, useReducer, useContext, useEffect } from 'react'
 import axios from 'axios'
+
 import { UserContext } from '../UserProvider/UserProvider'
+import { FormValue } from 'components/pages/OwnWords/OwnWords'
 
 type UserPacksProviderProps = {
   children: React.ReactNode
@@ -11,54 +13,49 @@ type Word = {
   word: string
 }
 
-type UserPacks = {
+type Pack = {
+  id: string
   name: string
+  language: string
+  dailyCheck: null | Date
+  weekCheck: null | Date
+  allCheck: null | Date
   words: Word[]
 }
 
 type Action = {
-  type: 'getPack' | 'getPackNames'
-  // type: 'signIn' | 'signOut'
-  // user?: UserPacks
+  type: 'getPacks' | 'addPack'
+  packs?: Pack[]
+  pack?: Pack
+  error?: string
 }
 
-// type signInData = {
-//   email: string
-//   password: string
-// }
-
-// type signUpData = signInData & {
-//   name: string
-// }
-
 type State = {
-  packs: UserPacks[]
-  error: boolean
+  packs: Pack[]
+  error: string
   pending: boolean
 }
 
 export const initialState: State = {
   packs: [],
-  error: false,
+  error: '',
   pending: false,
 }
 
 type UserPacksContextType = {
   userPacks: State
-  getWords: () => Promise<true | string>
-  addWord: () => Promise<true | string>
-  addWords: () => Promise<true | string>
-  updateWord: () => Promise<true | string>
-  deleteWord: () => Promise<true | string>
+  createPack: (pack: FormValue) => Promise<string>
+  getOwnPacks: () => Promise<true | string>
 }
 
 export const UserPacksContext = createContext<UserPacksContextType>({
   userPacks: { ...initialState },
-  getWords: async () => {return true},
-  addWord: async () => {return true},
-  addWords: async () => {return true},
-  updateWord: async () => {return true},
-  deleteWord: async () => {return true},
+  createPack: async (pack: FormValue) => {
+    return ''
+  },
+  getOwnPacks: async () => {
+    return true
+  },
 })
 
 const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3001'
@@ -67,18 +64,20 @@ const UserPacksProvider = (props: UserPacksProviderProps) => {
   const { user } = useContext(UserContext)
 
   const reducer = (state: State, action: Action) => {
-    let newState = { ...state }
+    const newState = { ...state }
 
     switch (action.type) {
-    //   case 'signIn':
-    //     if (action.user) {
-    //       newState = { ...action.user }
-    //     }
-    //     break
+      case 'getPacks':
+        action.packs
+          ? (newState.packs = [...action.packs])
+          : (newState.error = 'Missed packs')
+        break
 
-    //   case 'signOut':
-    //     newState = { ...initialState }
-    //     break
+      case 'addPack':
+        action.pack
+          ? (newState.packs = [action.pack, ...newState.packs])
+          : (newState.error = 'Missed pack')
+        break
 
       default:
         throw new Error()
@@ -89,118 +88,48 @@ const UserPacksProvider = (props: UserPacksProviderProps) => {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  // const signIn = (token: string, user: User) => {
-  //   localStorage.setItem('token', token)
-  //   dispatch({ type: 'signIn', user })
-  // }
-
-  // const autoSignIn = async () => {
-  //   const localToken = await localStorage.getItem('token')
-  //   if (localToken) {
-  //     try {
-  //       const request = await axios.post(
-  //         `http://${DOMAIN}/user/autoSignIn`,
-  //         {},
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${localToken}`,
-  //           },
-  //         },
-  //       )
-  //       const { token, user } = request.data
-  //       await signIn(token, user)
-  //     } catch (err: any) {
-  //       console.error(err)
-  //     }
-  //   }
-  // }
-
-  // const handSignIn = async (authData: signInData) => {
-  //   try {
-  //     const request = await axios.post(`http://${DOMAIN}/user/signIn`, {
-  //       ...authData,
-  //     })
-  //     const { token, user } = request.data
-  //     await signIn(token, user)
-
-  //     return true
-  //   } catch (err: any) {
-  //     console.error(err.response.data.message)
-  //     return err.response.data.message
-  //   }
-  // }
-
-  // const signUp = async (authData: signUpData) => {
-  //   try {
-  //     const request = await axios.post(`http://${DOMAIN}/user/signUp`, {
-  //       ...authData,
-  //     })
-  //     const { token, user } = request.data
-  //     await signIn(token, user)
-
-  //     return true
-  //   } catch (err: any) {
-  //     console.error(err.response.data.message)
-  //     return err.response.data.message
-  //   }
-  // }
-
-  // const signOut = async () => {
-  //   localStorage.removeItem('token')
-  //   await dispatch({ type: 'signOut' })
-  // }
-
-  // useEffect(() => {
-  //   autoSignIn()
-  // }, [])
-
-  const getWords = async () => {
+  const createPack = async (pack: FormValue) => {
     try {
-      return true
+      const localToken = (await localStorage.getItem('token')) || ''
+
+      const response = await axios.post(
+        `http://${DOMAIN}/pack/create`,
+        { ...pack },
+        {
+          headers: {
+            Authorization: `Bearer ${localToken}`,
+          },
+        },
+      )
+
+      dispatch({ type: 'addPack', pack: response.data })
+
+      return response.data.id
     } catch (err: any) {
-      return ''
+      return err
     }
   }
 
-  const addWord = async () => {
+  const getOwnPacks = async () => {
     try {
+      const localToken = (await localStorage.getItem('token')) || ''
+
+      const response = await axios.get(`http://${DOMAIN}/pack/getOwnPacks`, {
+        headers: {
+          Authorization: `Bearer ${localToken}`,
+        },
+      })
+
+      dispatch({ type: 'getPacks', packs: response.data.packs })
       return true
     } catch (err: any) {
-      return ''
-    }
-  }
-  
-  const addWords = async () => {
-    try {
-      return true
-    } catch (err: any) {
-      return ''
-    }
-  }
-  
-  const updateWord = async () => {
-    try {
-      return true
-    } catch (err: any) {
-      return ''
-    }
-  }
-  
-  const deleteWord = async () => {
-    try {
-      return true
-    } catch (err: any) {
-      return ''
+      return err
     }
   }
 
   useEffect(() => {
-    try {
-      if (user.name) {
-        getWords()
-      }
-    } catch (err: any) {
-      console.error(err)
+    if (user.name) {
+      getOwnPacks()
     }
   }, [user.name])
 
@@ -208,11 +137,8 @@ const UserPacksProvider = (props: UserPacksProviderProps) => {
     <UserPacksContext.Provider
       value={{
         userPacks: state,
-        getWords,
-        addWord,
-        addWords,
-        updateWord,
-        deleteWord,
+        createPack,
+        getOwnPacks,
       }}
     >
       {props.children}

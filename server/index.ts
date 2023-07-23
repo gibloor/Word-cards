@@ -5,6 +5,7 @@ import cors from 'cors'
 
 import user from './routes/user'
 import words from './routes/words'
+import pack from './routes/pack'
 
 dotenv.config()
 
@@ -30,6 +31,7 @@ app.use(express.json())
 
 app.use('/user', user)
 app.use('/words', words)
+app.use('/pack', pack)
 
 app.listen(3001, () => {
   console.log(`Server Started at 3001`)

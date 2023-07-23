@@ -40,8 +40,12 @@ type UserContextType = {
 export const UserContext = createContext<UserContextType>({
   user: { ...initialState },
   autoSignIn: () => {},
-  handSignIn: async () => {return true},
-  signUp: async () => {return true},
+  handSignIn: async () => {
+    return true
+  },
+  signUp: async () => {
+    return true
+  },
   signOut: () => {},
 })
 

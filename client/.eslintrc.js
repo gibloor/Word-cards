@@ -33,6 +33,8 @@ module.exports = {
     '@typescript-eslint/await-thenable': 'off',
     '@typescript-eslint/promise-function-async': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
-    '@typescript-eslint/no-misused-promises': 'off'
+    '@typescript-eslint/no-misused-promises': 'off',
+    '@typescript-eslint/indent': 'off',
+    '@typescript-eslint/prefer-optional-chain': 'off',
   },
 }

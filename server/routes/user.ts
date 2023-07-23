@@ -1,8 +1,9 @@
-import express, { Request, Response, NextFunction } from 'express'
+import express from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 import User from '../schemes/user'
+import validateToken from '../middlewares/validateToken'
 
 const user = express.Router()
 
@@ -14,28 +15,6 @@ const createToken = async (id: string) => {
     return token
   } catch (error) {
     throw new Error('Failed to create token');
-  }
-}
-
-const validateToken = (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const token = req.headers.authorization?.split(' ')[1]
-    const secretKey = process.env.SECRET_KEY || ''
-
-    if (!token) {
-      return res.status(401).json({ message: 'Missing token' })
-    }
-
-    jwt.verify(token, secretKey, (err, user: any) => {
-      if (err) {
-        return res.json('Wrong token')
-      }
-
-      req.body.id = user.id
-      next()
-    })
-  } catch (error) {
-    return res.status(401).json({ message: 'Invalid token' })
   }
 }
 
@@ -95,7 +74,7 @@ user.post('/signIn', async (req, res) => {
 
 user.post('/autoSignIn', validateToken, async (req, res) => {
   try {
-    const userData = await User.findById(req.body.id).exec()
+    const userData = await User.findById(req.body.userId).exec()
     if (userData) {
       const user = { name: userData.name, permissions: 0 }
       const token = await createToken(userData._id.toString())

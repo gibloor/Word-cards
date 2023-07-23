@@ -19,7 +19,7 @@ type CardsProps = {
 }
 
 const Cards = (props: CardsProps) => {
-  const { packId, reverse } = useParams();
+  const { reverse } = useParams()
   const cards: Card[] = [] // get from context
   // const reverse = true // get from url
 
@@ -106,13 +106,13 @@ const Cards = (props: CardsProps) => {
             text="Submit"
             onClick={onSubmit}
             disabled={answered}
-            type='text'
+            type="text"
           />
           <Button
             text="Next"
             onClick={nextCard}
             disabled={!answered}
-            type='text'
+            type="text"
           />
         </div>
       </div>

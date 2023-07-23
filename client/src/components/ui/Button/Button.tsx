@@ -17,16 +17,27 @@ type ButtonProps = {
 const Button = (props: ButtonProps) => {
   return (
     <button
-      className={`${props.className ? props.className : ''} ${props.type === 'text' ?
-        `text-button ${props.filled ? 'text-button__filled' : ''}` :
-        `image-button ${props.type === 'add' ? 'image-button__add' : 'image-button__delete'}`
+      className={`${props.className ? props.className : ''} ${
+        props.type === 'text'
+          ? `text-button ${props.filled ? 'text-button__filled' : ''}`
+          : `image-button ${
+              props.type === 'add'
+                ? 'image-button__add'
+                : 'image-button__delete'
+            }`
       }`}
       onClick={() => (props.onClick ? props.onClick() : undefined)}
       disabled={props.disabled}
       type={`${props.type === 'text' ? 'submit' : 'button'}`}
     >
-      {props.type === 'text' ? props.text : <img src={props.type === 'add' ? plus : trash} className='image-button__picture' />}
-      
+      {props.type === 'text' ? (
+        props.text
+      ) : (
+        <img
+          src={props.type === 'add' ? plus : trash}
+          className="image-button__picture"
+        />
+      )}
     </button>
   )
 }

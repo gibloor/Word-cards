@@ -7,7 +7,7 @@ import './styles.scss'
 const Main = () => {
   return (
     <div className="main">
-      <img alt='title' src={title} />
+      <img alt="title" src={title} />
     </div>
   )
 }

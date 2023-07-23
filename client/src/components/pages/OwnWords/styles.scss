@@ -17,9 +17,13 @@
   }
 
   &__container_buttons {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
     border-right: 1.55rem solid transparent;
     border-radius: 0.75rem;
     padding: 1.5rem;
+    overflow: auto;
   }
 
   &__container_buttons > button {
@@ -66,12 +70,17 @@
 
   &__menu {
     flex-grow: 1;
+    // width: 800px;
     padding: 1.5rem;
     overflow: auto;
   }
   
   &__menu_package-name {
     max-width: 30rem;
+  }
+
+  &__menu_language {
+    width: 7.5rem;
   }
 
   &__menu_word-fields {
@@ -82,6 +91,7 @@
 
   &__menu_word-field_container {
     display: flex;
+    align-items: center;
     flex-basis: 48.5%;
   }
 
@@ -101,5 +111,39 @@
   
   &__menu_delete-button {
     margin-left: 0.25rem;
+  }
+
+  &__menu_buttons_container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &__menu_buttons {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  &__menu_buttons > button {
+    margin-right: 0.5rem;
+  }
+
+  &__menu_buttons > button:last-child {
+    margin-right: 0rem;
+  }
+
+  &__menu_container {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+
+  &__menu_container > div {
+    margin-right: 1rem;
+  }
+
+  &__menu_container > div:last-child {
+    margin-right: 0rem;
   }
 }
