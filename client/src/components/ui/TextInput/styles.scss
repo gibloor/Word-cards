@@ -1,0 +1,16 @@
+@import '../../../styles/colors.scss';
+
+.text-input {
+  color: $dark-color;
+  position: relative;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 0.0625rem solid $dark-color;
+  border-radius: 0.25rem;
+}
+
+.text-input:focus {
+  outline: none;
+  border: 0.1rem solid $dark-color;
+  box-shadow: 0 0 0.625rem $light-color;
+}

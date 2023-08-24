@@ -1,0 +1,52 @@
+@import '../../../../../../styles/colors.scss';
+
+.exercise-desc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid $normal-color;
+  border-radius: 1rem;  
+  width: 27.5%;
+  gap: 1rem 0;
+  opacity: 0.9;
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5;
+  }
+
+  &__indicator {
+    font-weight: 500;
+  }
+
+  &__completed {
+    color: green;
+  }
+
+  &__uncompleted {
+    color: red;
+  }
+
+  &__picture {
+    height: 22.5rem;
+  }
+
+  &__picture_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.exercise-desc:hover {
+  opacity: 1;
+}

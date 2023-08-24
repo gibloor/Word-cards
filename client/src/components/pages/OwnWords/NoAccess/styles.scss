@@ -1,0 +1,32 @@
+@import '../../../../styles/colors.scss';
+
+.no-access {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  
+  &__container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 0 1.5rem;
+  }
+
+  &__arrow {
+    height: 5rem;
+  }
+
+  &__left-arrow {}
+
+  &__right-arrow {
+    transform: scaleX(-1);
+  }
+
+  &__text {
+    color: $light-color;
+    text-align: center;
+  }
+}

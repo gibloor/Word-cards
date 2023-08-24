@@ -40,8 +40,7 @@ user.post('/signUp', async (req, res) => {
     await res.json({ token, user })
   } catch (error: any) {
     if (error.code === 11000) {
-      let fieldName = error.keyValue && Object.keys(error.keyValue)[0]
-      res.status(400).json({ message: `${fieldName} is already taken` })
+      res.status(400).json({ message: `Email is already taken` })
     } else {
       res.status(400).json({ message: error.message })
     }

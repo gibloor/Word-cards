@@ -40,7 +40,7 @@ const Header = () => {
 
           {user.name ? (
             <>
-              <Link to={`/profile:${id}`}>User</Link>
+              <Link to={`/profile:${id}`}>{user.name}</Link>
               <Button text="Sign out" onClick={() => signOut()} type="text" />
             </>
           ) : (

@@ -1,12 +1,12 @@
 import React from 'react'
 
-import Packages from './Packages/Packages'
+import './styles.scss'
 
 const PublicPackages = () => {
   return (
-    <div>
-      PublicPackages
-      <Packages />
+    <div className="public-packages text_20">
+      <span>PublicPackages</span>
+      <span>I&apos;m too lazy</span>
     </div>
   )
 }

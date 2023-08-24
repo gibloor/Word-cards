@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Formik, Form } from 'formik'
 import OutsideClickHandler from 'react-outside-click-handler'
 import * as Yup from 'yup'
@@ -22,8 +22,8 @@ type FormValue = {
 }
 
 const SignForm = (props: SignFormProps) => {
-  const { formType, changeFormType } = props
-  const { signUp, handSignIn } = useContext(UserContext)
+  const { formType } = props
+  const { signUp, handSignIn, clearError, user } = useContext(UserContext)
 
   const reverseForm = formType === 'signIn' ? 'signUp' : 'signIn'
 
@@ -49,23 +49,24 @@ const SignForm = (props: SignFormProps) => {
   })
 
   const onSubmit = async (values: FormValue) => {
-    let response: string | boolean = false
-
     if (formType === 'signIn') {
-      response = await handSignIn(values)
+      await handSignIn(values)
     }
 
     if (formType === 'signUp') {
-      response = await signUp(values)
+      await signUp(values)
     }
+  }
 
-    if (response === true) {
+  useEffect(() => {
+    if (user.name) {
       changeFormType(null)
-    } else if (response) {
-      console.log(response)
-    } else {
-      console.error("Authentications does't work correct")
     }
+  }, [user.name])
+
+  const changeFormType = (formType: FormType | null) => {
+    props.changeFormType(formType)
+    clearError()
   }
 
   return (
@@ -92,7 +93,6 @@ const SignForm = (props: SignFormProps) => {
             password: '',
           }}
           validationSchema={validationSchema}
-          // validate={validate}
           onSubmit={onSubmit}
         >
           {({ isSubmitting }) => (
@@ -105,6 +105,7 @@ const SignForm = (props: SignFormProps) => {
                 <FormikField label="Password" type="password" name="password" />
               </div>
               <div className="sign-form__buttons">
+                <span className="sign-form__error">{user.error}</span>
                 <Button
                   text="Submit"
                   disabled={isSubmitting}

@@ -16,6 +16,7 @@
     padding: 0.5rem;
     font-size: 1rem;
     border: 0.0625rem solid $dark-color;
+    border-radius: 0.25rem;
   }
 
   &__field:focus {
@@ -52,26 +53,9 @@
     color: rgb(255, 45, 45);
     margin-top: 0.5rem;
     font-weight: 500;
-    // background-color: $dark-color;
     text-shadow: 1px 0 1px $dark-color, 
       0 1px 1px $dark-color, 
       -1px 0 1px $dark-color, 
       0 -1px 1px $dark-color;
   }
-
-  // &__hidden-select {
-  //   position: absolute;
-  //   font-size: 1rem;
-  //   border: none;
-  //   border-radius: 0.25rem;
-  //   padding: 0.5rem;
-  //   font-size: 1rem;
-  //   left: 0;
-  //   width: 100%;
-  //   z-index: -1;
-  // }
-
-  // &__hidden-select option:checked {
-  //   display: none;
-  // }
 }

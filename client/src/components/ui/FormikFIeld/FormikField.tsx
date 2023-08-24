@@ -1,7 +1,7 @@
 import React, { FocusEvent, useState } from 'react'
 import { ErrorMessage, Field, useFormikContext } from 'formik'
 
-import { Package } from 'components/pages/OwnWords/AddPack/AddPack'
+import { Package } from 'components/pages/OwnWords/MainMenu/AddPack/AddPack'
 
 import './styles.scss'
 
@@ -65,7 +65,7 @@ const FormikField = (props: FormikFieldProps) => {
         </label>
       )}
 
-      {selectValue ? (
+      {selectValue && onChange ? (
         <>
           <Field
             type={type}
@@ -74,12 +74,19 @@ const FormikField = (props: FormikFieldProps) => {
             className={`formik-field__field ${
               errorBorder ? 'error-field' : ''
             }`}
-            onClick={() => setShowSelector(true)}
-            onFocus={() => setShowSelector(true)}
-            onChange={(e: any) => {
-              onChange && onChange(e.target.value)
-              formik.handleChange(e)
+            onClick={(e: any) => {
+              setShowSelector(true)
+              onChange(e.target.value)
             }}
+            onFocus={(e: any) => {
+              setShowSelector(true)
+              onChange(e.target.value)
+            }}
+            onChange={(e: any) => {
+              formik.handleChange(e)
+              onChange(e.target.value)
+            }}
+            autoComplete="off"
           />
           {selectValue && selectValue.length && showSelector ? (
             <ul className="formik-field__selector">
@@ -97,9 +104,7 @@ const FormikField = (props: FormikFieldProps) => {
                 </li>
               ))}
             </ul>
-          ) : (
-            <></>
-          )}
+          ) : null}
         </>
       ) : (
         <Field

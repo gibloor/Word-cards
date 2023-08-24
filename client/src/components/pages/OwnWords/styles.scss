@@ -22,13 +22,6 @@
     border-radius: 0.75rem;
     padding: 1.5rem;
     overflow: auto;
-  }
-
-  &__container_buttons > button {
-    margin-bottom: 1.25rem;
-  }
-
-  &__container_buttons > button:last-child {
-    margin-bottom: 0rem;
+    gap: 1.25rem 0;
   }
 }

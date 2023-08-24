@@ -15,11 +15,7 @@
   &__column {
     display: flex;
     flex-direction: column;
-    margin-right: 1.5rem;
-  }
-
-  &__column:last-child {
-    margin-right: 0rem;
+    gap: 0 1.5rem;
   }
 
   &__column > span {

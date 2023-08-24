@@ -3,6 +3,8 @@ client/build
 
 server/node_modules
 
+openai-research/node_modules
+
 .DS_Store
 .env.local
 .env.development.local

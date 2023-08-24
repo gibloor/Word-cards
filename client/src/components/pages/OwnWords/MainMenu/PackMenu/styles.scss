@@ -1,0 +1,69 @@
+@import '../../../../../styles/colors.scss';
+
+.packmenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 1.5rem;
+
+  &__main-info {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  &__main-info_pack-name {
+    text-align: center;
+  }
+
+  &__languages {
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem 0;
+    max-width: 35%;
+  }
+
+  &__language {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &__translation {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  &__selector {
+    color: $dark-color;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 0.0625rem solid $dark-color;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+
+  &__selector:focus {
+    outline: none;
+    border: 0.1rem solid $dark-color;
+    box-shadow: 0 0 0.625rem $light-color;
+  }
+
+  &__exercises {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__delete-button {
+    background-color: red;
+    border-color: rgb(151, 0, 0);
+  }
+}

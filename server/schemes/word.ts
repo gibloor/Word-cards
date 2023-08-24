@@ -12,7 +12,7 @@ const wordSchema = new mongoose.Schema({
   word: {
     required: true,
     type: String,
-    unique: true,
+    unique: false,
   },
 
   packId: {

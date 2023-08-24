@@ -1,0 +1,52 @@
+@import '../../../styles/colors.scss';
+
+.selector {
+  position: relative;
+  cursor: pointer;
+  width: 7.5rem;
+
+  &__value {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    color: $dark-color;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid $light-color;
+  }
+
+  &__arrow {
+    height: 1.5rem;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  &__arrow_rotate {
+    transform: rotate(-180deg);
+  }
+  
+  &__list {
+    position: absolute;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    top: 2.50rem;
+    left: 0;
+    background-color: #fff;
+    border-radius: 0.25rem;
+    border: 1px solid $light-color;
+    width: 100%;
+    z-index: 999;
+    overflow: auto;
+    max-height: 20rem;
+    box-sizing: border-box;
+  }
+
+  &__option {
+    color: $dark-color;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-bottom: 1px solid $light-color;
+  }
+}

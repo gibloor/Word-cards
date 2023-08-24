@@ -11,8 +11,9 @@ type User = {
 }
 
 type Action = {
-  type: 'signIn' | 'signOut'
+  type: 'signIn' | 'signOut' | 'signError' | 'clearError'
   user?: User
+  error?: string
 }
 
 type signInData = {
@@ -24,46 +25,59 @@ type signUpData = signInData & {
   name: string
 }
 
-export const initialState: User = {
+type InitialState = User & {
+  error: string
+}
+
+export const initialState: InitialState = {
   name: '',
   permissions: 0,
+  error: '',
 }
 
 type UserContextType = {
-  user: User
+  user: InitialState
   autoSignIn: () => void
-  handSignIn: (authData: signInData) => Promise<true | string>
-  signUp: (authData: signUpData) => Promise<true | string>
+  handSignIn: (authData: signInData) => void
+  signUp: (authData: signUpData) => void
   signOut: () => void
+  clearError: () => void
 }
 
 export const UserContext = createContext<UserContextType>({
   user: { ...initialState },
   autoSignIn: () => {},
-  handSignIn: async () => {
-    return true
-  },
-  signUp: async () => {
-    return true
-  },
+  handSignIn: () => {},
+  signUp: () => {},
   signOut: () => {},
+  clearError: () => {},
 })
 
 const DOMAIN = process.env.REACT_APP_DOMAIN || 'localhost:3001'
 
 const UserProvider = (props: UserProviderProps) => {
-  const reducer = (state: User, action: Action) => {
+  const reducer = (state: InitialState, action: Action) => {
     let newState = { ...state }
 
     switch (action.type) {
       case 'signIn':
         if (action.user) {
-          newState = { ...action.user }
+          newState = { ...action.user, error: '' }
         }
         break
 
       case 'signOut':
         newState = { ...initialState }
+        break
+
+      case 'signError':
+        if (action.error) {
+          newState.error = action.error
+        }
+        break
+
+      case 'clearError':
+        newState.error = ''
         break
 
       default:
@@ -108,11 +122,8 @@ const UserProvider = (props: UserProviderProps) => {
       })
       const { token, user } = request.data
       await signIn(token, user)
-
-      return true
     } catch (err: any) {
-      console.error(err.response.data.message)
-      return err.response.data.message
+      dispatch({ type: 'signError', error: err.response.data.message })
     }
   }
 
@@ -123,17 +134,18 @@ const UserProvider = (props: UserProviderProps) => {
       })
       const { token, user } = request.data
       await signIn(token, user)
-
-      return true
     } catch (err: any) {
-      console.error(err.response.data.message)
-      return err.response.data.message
+      dispatch({ type: 'signError', error: err.response.data.message })
     }
   }
 
   const signOut = async () => {
     localStorage.removeItem('token')
     await dispatch({ type: 'signOut' })
+  }
+
+  const clearError = async () => {
+    await dispatch({ type: 'clearError' })
   }
 
   useEffect(() => {
@@ -148,6 +160,7 @@ const UserProvider = (props: UserProviderProps) => {
         handSignIn,
         signUp,
         signOut,
+        clearError,
       }}
     >
       {props.children}

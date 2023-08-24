@@ -1,0 +1,31 @@
+@import '../../../../../styles/colors.scss';
+
+.emptiness-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  
+  &__container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 0 1rem;
+  }
+
+  &__arrow {
+    height: 3rem;
+  }
+
+  &__left-arrow {}
+
+  &__right-arrow {
+    transform: scaleX(-1);
+  }
+
+  &__text {
+    color: $light-color;
+  }
+}

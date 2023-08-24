@@ -5,6 +5,7 @@ export type PackDocument = Document & {
   name: string
   ownerId: string
   language: string
+  secondLanguage: string
   dailyCheck: Date | null
   weekCheck: Date | null
   monthCheck: Date | null
@@ -35,6 +36,11 @@ const packSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
+  secondLanguage: {
+    type: String,
+    required: false,
+    default: ''
+  }
 })
 
 const Pack = mongoose.model<PackDocument>('Pack', packSchema)
